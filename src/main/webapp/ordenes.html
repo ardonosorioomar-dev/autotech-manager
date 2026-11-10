@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Órdenes de Trabajo – AutoTech Manager</title>
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div class="app-layout">
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-logo">AT</div>
+    <div>
+      <div class="brand-name">Auto<span>Tech</span></div>
+      <div class="brand-sub">Gestión de Taller</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Principal</div>
+    <a href="dashboard.html" class="nav-item" id="nav-dash">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </a>
+    <a href="ordenes.html" class="nav-item active" id="nav-ord">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
+      Órdenes de Trabajo
+      <span class="nav-badge" id="nb-ordenes">0</span>
+    </a>
+    <div class="nav-section-label">Clientes</div>
+    <a href="clientes.html" class="nav-item" id="nav-cli">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Clientes
+    </a>
+    <a href="vehiculos.html" class="nav-item" id="nav-veh">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v9a2 2 0 0 1-2 2h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+      Vehículos
+    </a>
+    <div class="nav-section-label">Operaciones</div>
+    <a href="mecanicos.html" class="nav-item" id="nav-mec">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+      Mecánicos
+    </a>
+    <a href="inventario.html" class="nav-item" id="nav-inv">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+      Inventario
+      <span class="nav-badge" id="nb-inv" style="background:#f39c12">0</span>
+    </a>
+    <a href="motores.html" class="nav-item" id="nav-mot">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M19.07 19.07l-1.41-1.41M4.93 19.07l1.41-1.41M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
+      Motores
+    </a>
+    <div class="nav-section-label">Finanzas</div>
+    <a href="presupuestos.html" class="nav-item" id="nav-pre">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      Presupuestos
+    </a>
+    <a href="pagos.html" class="nav-item" id="nav-pag">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      Pagos
+    </a>
+    <div class="nav-section-label">Especiales</div>
+    <a href="cambio-motor.html" class="nav-item" id="nav-cam">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+      Cambio de Motor
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="Login.html" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Cerrar Sesión
+    </a>
+  </div>
+</aside>
+
+<div class="topbar">
+  <button class="btn btn-icon btn-outline" onclick="document.getElementById('sidebar').classList.toggle('open')" style="display:none" id="menu-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <div class="topbar-title">Órdenes de Trabajo <span>· Gestión completa</span></div>
+  <div class="topbar-actions">
+    <div class="search-bar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="Buscar orden, placa, cliente…" id="search-input">
+    </div>
+    <button class="btn btn-primary btn-sm" onclick="AT.openModal('modal-nueva-orden')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Nueva Orden
+    </button>
+  </div>
+</div>
+
+<main class="main-content">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Órdenes de <span>Trabajo</span></div>
+      <div class="page-subtitle">Registro y seguimiento de todas las órdenes del taller</div>
+    </div>
+    <div class="flex gap-2">
+      <select class="form-control btn-sm" id="filter-estado" style="min-width:160px">
+        <option value="">Todos los estados</option>
+        <option>Recibida</option>
+        <option>En diagnóstico</option>
+        <option>Pendiente de aprobación</option>
+        <option>En reparación</option>
+        <option>En control de calidad</option>
+        <option>Finalizada y entregada</option>
+        <option>Rechazada</option>
+        <option>Cancelada</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Todas las Órdenes</div>
+      <div class="text-sm text-mute" id="count-label">Cargando…</div>
+    </div>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>N° Orden</th>
+            <th>Placa</th>
+            <th>Cliente</th>
+            <th>Mecánico</th>
+            <th>Fecha Ingreso</th>
+            <th>Estado</th>
+            <th>Total</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-ordenes"></tbody>
+      </table>
+    </div>
+  </div>
+</main>
+</div>
+
+<div class="modal-overlay" id="modal-nueva-orden">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Nueva Orden de Trabajo</div>
+        <div class="modal-subtitle">Complete todos los campos requeridos</div>
+      </div>
+      <button class="btn btn-icon btn-outline" onclick="AT.closeModal('modal-nueva-orden')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <form id="form-nueva-orden">
+      <div class="modal-body">
+        <div class="form-grid form-grid-2">
+          <div class="form-group">
+            <label class="form-label form-label-required">Cliente</label>
+            <select class="form-control" id="no-cliente" required>
+              <option value="">— Seleccionar cliente —</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label form-label-required">Vehículo</label>
+            <select class="form-control" id="no-vehiculo" required>
+              <option value="">— Seleccionar vehículo —</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label form-label-required">Mecánico Asignado</label>
+            <select class="form-control" id="no-mecanico" required>
+              <option value="">— Seleccionar mecánico —</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label form-label-required">Kilometraje</label>
+            <input type="number" class="form-control" id="no-km" placeholder="Ej. 95000" min="0" required>
+          </div>
+        </div>
+        <div class="form-grid mt-3">
+          <div class="form-group">
+            <label class="form-label form-label-required">Síntomas reportados</label>
+            <textarea class="form-control" id="no-sintomas" rows="3" placeholder="Describa los síntomas que reporta el cliente…" required></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Diagnóstico inicial</label>
+            <textarea class="form-control" id="no-diagnostico" rows="3" placeholder="Diagnóstico preliminar del mecánico…"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" onclick="AT.closeModal('modal-nueva-orden')">Cancelar</button>
+        <button type="submit" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Crear Orden
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-detalle-orden">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="det-titulo">Detalle de Orden</div>
+        <div class="modal-subtitle" id="det-subtitulo"></div>
+      </div>
+      <button class="btn btn-icon btn-outline" onclick="AT.closeModal('modal-detalle-orden')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="det-body"></div>
+    <div class="modal-footer">
+      <div class="form-group" style="flex-direction:row;align-items:center;gap:8px;margin-right:auto">
+        <label class="form-label" style="white-space:nowrap;margin:0">Cambiar Estado:</label>
+        <select class="form-control btn-sm" id="det-estado-select" style="min-width:200px">
+          <option>Recibida</option>
+          <option>En diagnóstico</option>
+          <option>Pendiente de aprobación</option>
+          <option>En reparación</option>
+          <option>En control de calidad</option>
+          <option>Finalizada y entregada</option>
+          <option>Rechazada</option>
+          <option>Cancelada</option>
+        </select>
+        <button class="btn btn-primary btn-sm" onclick="cambiarEstado()">Aplicar</button>
+      </div>
+      <button class="btn btn-outline" onclick="AT.closeModal('modal-detalle-orden')">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script>
+(function() {
+  const db = AT.getDB();
+  let ordenActualId = null;
+
+  function poblarSelectClientes() {
+    const sel = document.getElementById('no-cliente');
+    db.clientes.filter(c => c.activo).forEach(c => {
+      const o = document.createElement('option');
+      o.value = c.id;
+      o.textContent = c.nombreCompleto + ' (' + c.identidad + ')';
+      sel.appendChild(o);
+    });
+  }
+
+  function poblarSelectMecanicos() {
+    const sel = document.getElementById('no-mecanico');
+    db.mecanicos.filter(m => m.activo).forEach(m => {
+      const o = document.createElement('option');
+      o.value = m.id;
+      o.textContent = m.nombreCompleto + ' – ' + m.especialidad;
+      sel.appendChild(o);
+    });
+  }
+
+  document.getElementById('no-cliente').addEventListener('change', function() {
+    const idC = parseInt(this.value);
+    const selV = document.getElementById('no-vehiculo');
+    selV.innerHTML = '<option value="">— Seleccionar vehículo —</option>';
+    if (!idC) return;
+    db.vehiculos.filter(v => v.idCliente === idC && v.activo).forEach(v => {
+      const o = document.createElement('option');
+      o.value = v.id;
+      o.textContent = v.placa + ' · ' + v.marca + ' ' + v.modelo + ' ' + v.anio;
+      selV.appendChild(o);
+    });
+  });
+
+  function renderTabla() {
+    const q = document.getElementById('search-input').value.toLowerCase();
+    const fEstado = document.getElementById('filter-estado').value;
+    const tbody = document.getElementById('tabla-ordenes');
+
+    let rows = db.ordenes.filter(o => {
+      const v = AT.getVehiculo(o.idVehiculo);
+      const cn = AT.getClienteNombre(o.idCliente);
+      const m = AT.getMecanico(o.idMecanico);
+      const matchQ = !q || o.numero.toLowerCase().includes(q) ||
+        (v.placa || '').toLowerCase().includes(q) ||
+        cn.toLowerCase().includes(q) ||
+        (m.nombreCompleto || '').toLowerCase().includes(q);
+      const matchE = !fEstado || o.estado === fEstado;
+      return matchQ && matchE;
+    });
+
+    document.getElementById('count-label').textContent = rows.length + ' orden(es)';
+
+    if (!rows.length) {
+      tbody.innerHTML = '<tr><td colspan="8"><div class="empty-state"><p>No se encontraron órdenes</p></div></td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = rows.map(o => {
+      const v = AT.getVehiculo(o.idVehiculo);
+      const m = AT.getMecanico(o.idMecanico);
+      return `<tr>
+        <td class="td-primary" style="color:var(--amber)">${o.numero}</td>
+        <td>${AT.plate(v.placa || '—')}</td>
+        <td>${AT.getClienteNombre(o.idCliente)}<br><small class="text-mute">${v.marca || ''} ${v.modelo || ''} ${v.anio || ''}</small></td>
+        <td class="text-sm">${m.nombreCompleto || '—'}</td>
+        <td class="text-sm">${AT.formatDate(o.fechaIngreso)}</td>
+        <td>${AT.badge(o.estado)}</td>
+        <td class="fw-bold">${AT.L(o.total)}</td>
+        <td><button class="btn btn-outline btn-sm" onclick="abrirDetalle(${o.id})">Ver Detalle</button></td>
+      </tr>`;
+    }).join('');
+  }
+
+  window.abrirDetalle = function(id) {
+    const o = db.ordenes.find(x => x.id === id);
+    if (!o) return;
+    ordenActualId = id;
+    const v = AT.getVehiculo(o.idVehiculo);
+    const m = AT.getMecanico(o.idMecanico);
+    const cn = AT.getClienteNombre(o.idCliente);
+
+    document.getElementById('det-titulo').textContent = o.numero;
+    document.getElementById('det-subtitulo').textContent = AT.plate(v.placa || '').replace(/<[^>]+>/g,'') + ' · ' + cn;
+    document.getElementById('det-estado-select').value = o.estado;
+
+    const svcs = (o.servicios || []).map(s => {
+      const svc = db.servicios ? db.servicios.find(x => x.id === s.idServicio) : null;
+      return `<tr><td>${svc ? svc.nombre : 'Servicio #' + s.idServicio}</td><td class="fw-bold">${AT.L(s.sub || s.precio)}</td></tr>`;
+    }).join('');
+
+    const reps = (o.repuestosUsados || []).map(r => {
+      const rep = db.repuestos.find(x => x.id === r.idRepuesto);
+      return `<tr><td>${rep ? rep.nombre : 'Repuesto #' + r.idRepuesto} × ${r.cantidad}</td><td class="fw-bold">${AT.L(r.sub || r.precio * r.cantidad)}</td></tr>`;
+    }).join('');
+
+    const baseAmt = (o.subServicios || 0) + (o.subRepuestos || 0) - (o.descuento || 0);
+
+    document.getElementById('det-body').innerHTML = `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">
+        <div>
+          <div class="section-title">Información del Vehículo</div>
+          <div class="text-sm" style="display:grid;gap:6px">
+            <div class="flex justify-between"><span class="text-mute">Placa:</span><span>${AT.plate(v.placa || '—')}</span></div>
+            <div class="flex justify-between"><span class="text-mute">Vehículo:</span><span>${v.marca || ''} ${v.modelo || ''} ${v.anio || ''}</span></div>
+            <div class="flex justify-between"><span class="text-mute">VIN:</span><span style="font-size:0.72rem">${v.vin || '—'}</span></div>
+            <div class="flex justify-between"><span class="text-mute">Kilometraje:</span><span>${(o.km || 0).toLocaleString()} km</span></div>
+            <div class="flex justify-between"><span class="text-mute">Cliente:</span><span>${cn}</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="section-title">Información de la Orden</div>
+          <div class="text-sm" style="display:grid;gap:6px">
+            <div class="flex justify-between"><span class="text-mute">N° Orden:</span><span style="color:var(--amber)">${o.numero}</span></div>
+            <div class="flex justify-between"><span class="text-mute">Mecánico:</span><span>${m.nombreCompleto || '—'}</span></div>
+            <div class="flex justify-between"><span class="text-mute">Fecha Ingreso:</span><span>${AT.formatDate(o.fechaIngreso)}</span></div>
+            <div class="flex justify-between"><span class="text-mute">Estado:</span><span>${AT.badge(o.estado)}</span></div>
+            <div class="flex justify-between"><span class="text-mute">Saldo:</span><span class="text-red fw-bold">${AT.L(o.saldo)}</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group mb-3">
+        <div class="section-title">Síntomas</div>
+        <div class="text-sm" style="background:var(--bg3);border-radius:8px;padding:12px;color:var(--mute)">${o.sintomas || '—'}</div>
+      </div>
+      <div class="form-group mb-4">
+        <div class="section-title">Diagnóstico</div>
+        <div class="text-sm" style="background:var(--bg3);border-radius:8px;padding:12px;color:var(--mute)">${o.diagnostico || '—'}</div>
+      </div>
+      ${svcs || reps ? `<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">
+        ${svcs ? `<div><div class="section-title">Servicios</div><table><tbody>${svcs}</tbody></table></div>` : ''}
+        ${reps ? `<div><div class="section-title">Repuestos</div><table><tbody>${reps}</tbody></table></div>` : ''}
+      </div>` : ''}
+      <div class="summary-box">
+        <div class="summary-row"><span>Subtotal Servicios</span><span>${AT.L(o.subServicios || 0)}</span></div>
+        <div class="summary-row"><span>Subtotal Repuestos</span><span>${AT.L(o.subRepuestos || 0)}</span></div>
+        <div class="summary-row"><span>Descuento</span><span>− ${AT.L(o.descuento || 0)}</span></div>
+        <div class="summary-row"><span>ISV 15%</span><span>${AT.L(o.isv || 0)}</span></div>
+        <div class="summary-row total"><span>TOTAL</span><span>${AT.L(o.total || 0)}</span></div>
+      </div>`;
+
+    AT.openModal('modal-detalle-orden');
+  };
+
+  window.cambiarEstado = function() {
+    const o = db.ordenes.find(x => x.id === ordenActualId);
+    if (!o) return;
+    const nuevoEstado = document.getElementById('det-estado-select').value;
+    o.estado = nuevoEstado;
+    if (nuevoEstado === 'Finalizada y entregada' && !o.fechaFin) o.fechaFin = new Date().toISOString().slice(0,10);
+    AT.save('ordenes');
+    AT.toast('Estado actualizado a: ' + nuevoEstado, 'success');
+    AT.closeModal('modal-detalle-orden');
+    renderTabla();
+  };
+  document.getElementById('form-nueva-orden').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const idCliente = parseInt(document.getElementById('no-cliente').value);
+    const idVehiculo = parseInt(document.getElementById('no-vehiculo').value);
+    const idMecanico = parseInt(document.getElementById('no-mecanico').value);
+    const km = parseInt(document.getElementById('no-km').value);
+    const sintomas = document.getElementById('no-sintomas').value.trim();
+    const diagnostico = document.getElementById('no-diagnostico').value.trim();
+
+    if (!idCliente || !idVehiculo || !idMecanico || !km || !sintomas) {
+      AT.toast('Complete todos los campos requeridos', 'error'); return;
+    }
+
+    const newId = AT.nextId('ordenes');
+    const numero = 'ORD-2026-' + String(newId).padStart(5,'0');
+    const nueva = {
+      id: newId, numero, idCliente, idVehiculo, idMecanico,
+      fechaIngreso: new Date().toISOString().slice(0,16),
+      fechaCompromiso: null, fechaFin: null,
+      km, sintomas, diagnostico,
+      estado: 'Recibida',
+      servicios: [], repuestosUsados: [],
+      subServicios: 0, subRepuestos: 0, descuento: 0, isv: 0, total: 0, saldo: 0
+    };
+    db.ordenes.push(nueva);
+    AT.save('ordenes');
+    AT.save('nextId');
+    AT.toast('Orden ' + numero + ' creada exitosamente', 'success');
+    AT.closeModal('modal-nueva-orden');
+    this.reset();
+    document.getElementById('no-vehiculo').innerHTML = '<option value="">— Seleccionar vehículo —</option>';
+    renderTabla();
+  });
+
+  document.getElementById('search-input').addEventListener('input', renderTabla);
+  document.getElementById('filter-estado').addEventListener('change', renderTabla);
+
+  poblarSelectClientes();
+  poblarSelectMecanicos();
+  renderTabla();
+  if (window.innerWidth <= 1024) document.getElementById('menu-btn').style.display = 'flex';
+})();
+</script>
+</body>
+</html>

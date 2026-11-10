@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motores – AutoTech Manager</title>
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div class="app-layout">
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-logo">AT</div>
+    <div>
+      <div class="brand-name">Auto<span>Tech</span></div>
+      <div class="brand-sub">Gestión de Taller</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Principal</div>
+    <a href="dashboard.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard</a>
+    <a href="ordenes.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>Órdenes de Trabajo<span class="nav-badge" id="nb-ordenes">0</span></a>
+    <div class="nav-section-label">Clientes</div>
+    <a href="clientes.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Clientes</a>
+    <a href="vehiculos.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v9a2 2 0 0 1-2 2h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>Vehículos</a>
+    <div class="nav-section-label">Operaciones</div>
+    <a href="mecanicos.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Mecánicos</a>
+    <a href="inventario.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>Inventario<span class="nav-badge" id="nb-inv" style="background:#f39c12">0</span></a>
+    <a href="motores.html" class="nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M19.07 19.07l-1.41-1.41M4.93 19.07l1.41-1.41M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>Motores</a>
+    <div class="nav-section-label">Finanzas</div>
+    <a href="presupuestos.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Presupuestos</a>
+    <a href="pagos.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>Pagos</a>
+    <div class="nav-section-label">Especiales</div>
+    <a href="cambio-motor.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Cambio de Motor</a>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="Login.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Cerrar Sesión</a>
+  </div>
+</aside>
+
+<div class="topbar">
+  <button class="btn btn-icon btn-outline" onclick="document.getElementById('sidebar').classList.toggle('open')" style="display:none" id="menu-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+  <div class="topbar-title">Motores <span>· Trazabilidad y compatibilidad de motores</span></div>
+  <div class="topbar-actions"><div class="search-bar"><input type="text" id="q" placeholder="Buscar por serie o código…"></div></div>
+</div>
+<main class="main-content">
+<div class="page-header"><div><div class="page-title">Motores</div><div class="page-subtitle">Trazabilidad y compatibilidad de motores</div></div></div>
+<div class="card mt-2"><div class="card-header"><div class="card-title">¿Qué motores sirven para este vehículo?</div></div>
+<div style="padding:16px;display:flex;gap:12px;flex-wrap:wrap;align-items:center"><select class="form-control" id="veh" style="max-width:380px"></select><div id="res" class="text-sm"></div></div></div>
+<div class="card mt-3"><div class="card-header"><div class="card-title">Motores registrados</div><div class="text-sm text-mute" id="cnt"></div></div>
+<div class="table-wrapper"><table><thead><tr><th>Serie</th><th>Código</th><th>Cilindrada</th><th>Combustible</th><th>Compatible con</th><th>Estado</th></tr></thead><tbody id="tb"></tbody></table></div></div>
+</main>
+</div>
+<script src="js/data.js"></script>
+<script>
+(function(){ const db = AT.getDB(); const $ = id => document.getElementById(id);
+const col={Disponible:'green',Instalado:'blue',Retirado:'mute'};
+function comp(m,v){return m.marcaComp===v.marca&&m.modeloComp===v.modelo&&v.anio>=m.anioIni&&v.anio<=m.anioFin;}
+$('veh').innerHTML='<option value="">Seleccione un vehículo…</option>'+db.vehiculos.map(v=>`<option value="${v.id}">${v.placa} · ${v.marca} ${v.modelo} ${v.anio}</option>`).join('');
+$('veh').addEventListener('change',()=>{const v=db.vehiculos.find(x=>x.id==$('veh').value);if(!v){$('res').innerHTML='';return;}
+ const ok=db.motores.filter(m=>m.estado==='Disponible'&&comp(m,v));
+ $('res').innerHTML=ok.length?'<span class="badge badge-green">'+ok.length+' motor(es) disponible(s) y compatible(s)</span> '+ok.map(m=>m.serie).join(', '):'<span class="badge badge-red">Ningún motor disponible es compatible con este vehículo</span>';});
+function render(){const q=$('q').value.toLowerCase();const rows=db.motores.filter(m=>!q||(m.serie+m.codigo).toLowerCase().includes(q));$('cnt').textContent=rows.length+' motor(es)';
+ $('tb').innerHTML=rows.map(m=>`<tr><td class="td-primary text-sm">${m.serie}</td><td>${m.codigo}</td><td>${m.cilindrada} L</td><td>${m.combustible}</td><td>${m.marcaComp} ${m.modeloComp} ${m.anioIni}–${m.anioFin}</td><td><span class="badge badge-${col[m.estado]||'mute'}">${m.estado}</span></td></tr>`).join('');}
+$('q').addEventListener('input',render);render();
+})();
+</script>
+</body>
+</html>

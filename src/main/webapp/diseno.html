@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TallerPro · Sistema Integral de Gestión para Taller Mecánico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilo.css">
+</head>
+<body id="top">
+<nav id="nav">
+  <a class="lg cd" href="#top"><b>TP</b>Taller<span>Pro</span></a>
+  <div class="lk"><a href="#modulos">Módulos</a><a href="#demo">Probar</a><a href="#proceso">Proceso</a></div>
+  <a class="btn a sm" href="#demo">Probar el sistema</a>
+</nav>
+
+<header class="hero"><div class="w hg">
+  <div>
+    <h1>Todo el taller en una sola pantalla.</h1>
+    <p>Recibe, diagnostica, cotiza, repara y entrega cada vehículo con el cliente informado y el inventario siempre al día.</p>
+    <div class="hb"><a class="btn a" href="#demo">Probar el sistema</a><button class="btn g" id="rv">Acelerar el motor</button></div>
+  </div>
+  <div class="gw" id="gw" title="Haz clic para acelerar">
+    <svg viewBox="0 0 400 330" role="img" aria-label="Tacómetro animado"><g id="gs"></g><g id="nd"><line x1="200" y1="216" x2="200" y2="72" stroke="#caa068" stroke-width="5" stroke-linecap="round"/></g><circle cx="200" cy="200" r="14" fill="#caa068"/><circle cx="200" cy="200" r="5" fill="#121316"/><text id="rd" x="200" y="262" text-anchor="middle">0</text><text x="200" y="288" text-anchor="middle">RPM · taller en marcha</text></svg>
+  </div>
+</div></header>
+
+<section id="modulos"><div class="w">
+  <h2 class="rv">Seis módulos, un solo flujo de trabajo</h2>
+  <p class="sub rv">Cada área del taller comparte la misma información, sin papeles ni hojas sueltas.</p>
+  <div class="fg" id="fg"></div>
+</div></section>
+
+<div class="band"><div class="w bg">
+  <div><b data-n="6">0</b><span>módulos integrados</span></div>
+  <div><b data-n="5">0</b><span>etapas por vehículo</span></div>
+  <div><b data-n="3">0</b><span>roles de usuario</span></div>
+  <div><b data-n="15" data-s="%">0</b><span>ISV calculado solo</span></div>
+</div></div>
+
+<section id="demo"><div class="w">
+  <h2 class="rv">Pruébalo: así se siente el sistema</h2>
+  <p class="sub rv">Datos de ejemplo. Mueve vehículos, busca repuestos y arma una cotización.</p>
+  <div class="win rv">
+    <div class="wb"><i></i><i></i><i></i><span>tallerpro / <b id="wt">tablero</b></span></div>
+    <div class="tabs" role="tablist"><button class="on" data-t="t1">Tablero de órdenes</button><button data-t="t2">Inventario</button><button data-t="t3">Cotizador</button></div>
+    <div class="pn" id="t1">
+      <form class="ad" id="af"><input id="ap" placeholder="Placa, ej. HCF 3307" maxlength="8" required aria-label="Placa"><select id="as" aria-label="Servicio"><option>Cambio de aceite</option><option>Revisión de frenos</option><option>Alineación y balanceo</option><option>Diagnóstico de motor</option></select><button class="btn sm">Ingresar vehículo</button></form>
+      <div class="kb" id="bd"></div>
+    </div>
+    <div class="pn" id="t2" hidden>
+      <div class="ad"><input class="sr" id="iq" placeholder="Buscar repuesto" aria-label="Buscar repuesto"><label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="il">Solo bajo mínimo</label></div>
+      <div id="ib"></div>
+    </div>
+    <div class="pn" id="t3" hidden><div class="qg">
+      <div class="sv" id="sv"></div>
+      <div class="sm2"><h3 style="font-size:26px;margin-bottom:8px">Cotización</h3>
+        <div>Subtotal<span id="qs">L 0.00</span></div>
+        <label><input type="checkbox" id="dc">Cliente frecuente (10%)</label>
+        <div>Descuento<span id="qd">− L 0.00</span></div>
+        <div>ISV 15%<span id="qi">L 0.00</span></div>
+        <div class="tt">Total<b id="qt">L 0.00</b></div>
+        <button class="btn a" style="width:100%;margin-top:14px" id="qg">Generar cotización</button>
+      </div>
+    </div></div>
+  </div>
+</div></section>
+
+<section id="proceso" style="padding-top:20px"><div class="w">
+  <h2 class="rv">El recorrido de cada vehículo</h2>
+  <p class="sub rv">Cinco etapas claras. Toca una para ver qué pasa en ella.</p>
+  <div class="st rv" id="st"><div class="pl"></div><div class="pf" id="pf"></div></div>
+  <div class="dt rv" id="dt" aria-live="polite"></div>
+</div></section>
+
+<div class="cta"><div class="w rv"><h2>Un taller ordenado se nota en cada entrega</h2><p>Revisa el tablero, la cotización y el inventario una vez más.</p><a class="btn a" href="#demo">Volver a la demo</a></div></div>
+<footer>TallerPro · Proyecto académico · Todos los datos son de ejemplo</footer>
+
+<script>
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+const rm = matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+const m = n => "L " + n.toLocaleString("es-HN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+const plate = p => `<span class="plate"><i>HONDURAS</i>${p}</span>`;
+
+const tw = (a, b, ms, fn) => new Promise(r => {
+  if (rm) { fn(b); return r(); }
+  const t0 = performance.now();
+  (function f(t) {
+    const k = Math.min(1, (t - t0) / ms);
+    const e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+    fn(a + (b - a) * e);
+    k < 1 ? requestAnimationFrame(f) : r();
+  })(t0);
+});
+
+function toast(t) {
+  const d = document.createElement("div");
+  d.className = "toast";
+  d.setAttribute("role", "status");
+  d.textContent = t;
+  document.body.append(d);
+  setTimeout(() => d.remove(), 2600);
+}
+
+const A = v => -120 + v * 30;
+const pt = (a, r) => [200 + r * Math.sin(a * Math.PI / 180), 200 - r * Math.cos(a * Math.PI / 180)];
+
+let g = "";
+for (let i = 0; i <= 40; i++) {
+  const M = i % 5 == 0, a = A(i / 5), p = pt(a, 150), q = pt(a, M ? 128 : 140);
+  g += `<line x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}" stroke="${i >= 33 ? "#caa068" : "#8d929f"}" stroke-width="${M ? 3 : 1.5}"/>`;
+  if (M) {
+    const l = pt(a, 108);
+    g += `<text x="${l[0]}" y="${l[1] + 5}" text-anchor="middle">${i / 5}</text>`;
+  }
+}
+
+const r1 = pt(A(6.6), 162), r2 = pt(A(8), 162);
+$("#gs").innerHTML = g + `<path d="M${r1} A162 162 0 0 1 ${r2}" fill="none" stroke="#caa068" stroke-width="5" opacity=".7"/>`;
+
+let cur = 0, busy = 0;
+const setV = v => {
+  $("#nd").setAttribute("transform", `rotate(${A(v)} 200 200)`);
+  $("#rd").textContent = Math.round(v * 1000).toLocaleString("es-HN");
+  cur = v;
+};
+
+async function rev() {
+  if (busy) return;
+  busy = 1;
+  await tw(cur, 7.4, 1000, setV);
+  await tw(7.4, 3, 1300, setV);
+  busy = 0;
+}
+
+setV(0);
+setTimeout(rev, 600);
+
+setInterval(() => {
+  if (!busy && !rm) {
+    busy = 1;
+    tw(cur, 2.6 + Math.random() * 1.2, 1200, setV).then(() => busy = 0);
+  }
+}, 2600);
+
+$("#gw").onclick = $("#rv").onclick = rev;
+
+const IC = [
+  "M9 4h6v3H9zM7 5H5v16h14V5h-2M8 12h8M8 16h5",
+  "M3 14l2-6h14l2 6v5h-3v-2H6v2H3zM3 14h18",
+  "M3 7l9-4 9 4v10l-9 4-9-4zM3 7l9 4 9-4M12 11v10",
+  "M6 3h9l4 4v14H6zM14 3v5h5M9 13h6M9 17h6",
+  "M4 6h16v14H4zM4 10h16M8 3v5M16 3v5",
+  "M4 20V4M4 20h16M8 16v-5M12 16V8M16 16v-3"
+];
+
+const F = [
+  ["Órdenes de trabajo", "Del ingreso a la entrega en un tablero, con responsable y prioridad por vehículo."],
+  ["Clientes y vehículos", "Historial completo por placa: servicios, repuestos y próximos mantenimientos."],
+  ["Inventario", "Existencias en tiempo real y alerta cuando un repuesto baja del mínimo."],
+  ["Cotización y facturación", "Presupuestos con ISV y descuentos, facturas y control de pagos pendientes."],
+  ["Agenda de citas", "Reserva de bahías y mecánicos sin cruces de horario."],
+  ["Reportes", "Ingresos, tiempos de reparación y servicios más pedidos para decidir mejor."]
+];
+
+$("#fg").innerHTML = F.map((f, i) => `
+  <article class="fc rv">
+    <div class="ic"><svg viewBox="0 0 24 24"><path d="${IC[i]}"/></svg></div>
+    <h3>${f[0]}</h3>
+    <p>${f[1]}</p>
+  </article>
+`).join("");
+
+const C = ["Diagnóstico", "En reparación", "Listo para entregar"];
+let O = [
+  { p: "HDA 1176", v: "Honda Civic 2016", s: "Luz de motor encendida", c: 0 },
+  { p: "HBR 7745", v: "Toyota Corolla 2012", s: "Correa de distribución", c: 0 },
+  { p: "HBC 4821", v: "Toyota Hilux 2019", s: "Pastillas y discos", c: 1 },
+  { p: "HBN 6652", v: "Hyundai Tucson 2018", s: "Cambio de embrague", c: 1 },
+  { p: "HAZ 9034", v: "Nissan Frontier 2014", s: "Aceite y filtros", c: 2 }
+];
+
+function board(n) {
+  $("#bd").innerHTML = C.map((t, i) => {
+    const L = O.filter(o => o.c === i);
+    return `
+      <div class="kc">
+        <h4>${t}<b>${L.length}</b></h4>
+        ${L.map(o => `
+          <div class="kd${o === n ? " pop" : ""}">
+            <div class="t">
+              ${plate(o.p)}
+              <button class="btn sm" data-p="${o.p}">${i < 2 ? "Avanzar" : "Entregar"}</button>
+            </div>
+            <small>${o.v} · ${o.s}</small>
+            <div class="pr"><i style="width:${(o.c + 1) * 33.3}%"></i></div>
+          </div>
+        `).join("") || '<p class="em">Sin vehículos en esta etapa</p>'}
+      </div>
+    `;
+  }).join("");
+}
+
+$("#bd").onclick = e => {
+  const p = e.target.dataset.p;
+  if (!p) return;
+  const o = O.find(x => x.p === p);
+  if (o.c < 2) {
+    o.c++;
+    board(o);
+    toast(p + " pasó a " + C[o.c].toLowerCase());
+  } else {
+    O = O.filter(x => x !== o);
+    board();
+    toast(p + " entregado al cliente");
+  }
+};
+
+$("#af").onsubmit = e => {
+  e.preventDefault();
+  const n = { p: $("#ap").value.toUpperCase(), v: "Vehículo nuevo", s: $("#as").value, c: 0 };
+  O.push(n);
+  board(n);
+  e.target.reset();
+  toast("Vehículo " + n.p + " ingresado");
+};
+
+board();
+const I = [
+  ["Filtro de aceite universal", 24, 8, 185],
+  ["Aceite 10W-30 (galón)", 6, 10, 640],
+  ["Pastillas de freno delanteras", 3, 6, 980],
+  ["Disco de freno ventilado", 9, 4, 1350],
+  ["Batería 12V 650 CCA", 2, 3, 2900],
+  ["Correa de distribución", 5, 4, 820],
+  ["Bujía de iridio", 4, 12, 215],
+  ["Refrigerante (galón)", 14, 6, 310]
+];
+
+function inv() {
+  const q = $("#iq").value.toLowerCase(), lo = $("#il").checked;
+  $("#ib").innerHTML = I.filter(i => i[0].toLowerCase().includes(q) && (!lo || i[1] <= i[2])).map(i => `
+    <div class="ir">
+      <span>${i[0]}</span>
+      <span class="mu">${i[1]} u.</span>
+      <div class="bar${i[1] <= i[2] ? " lo" : ""}" title="${i[1] <= i[2] ? "Bajo el mínimo" : "Existencia normal"}">
+        <i data-w="${Math.min(100, i[1] / (i[2] * 3) * 100)}"></i>
+      </div>
+      <b>${m(i[3])}</b>
+    </div>
+  `).join("") || '<p class="em">Ningún repuesto coincide con la búsqueda.</p>';
+  
+  requestAnimationFrame(() => requestAnimationFrame(() => $$("#ib i").forEach(e => e.style.width = e.dataset.w + "%")));
+}
+
+$("#iq").oninput = $("#il").onchange = inv;
+
+const S = [
+  ["Cambio de aceite y filtro", 650],
+  ["Alineación y balanceo", 900],
+  ["Pastillas de freno (juego)", 1250],
+  ["Diagnóstico computarizado", 600],
+  ["Revisión de aire acondicionado", 850],
+  ["Cambio de batería", 3100]
+];
+
+$("#sv").innerHTML = S.map((s, i) => `
+  <label class="ch">
+    <input type="checkbox" value="${i}">
+    <span>${s[0]}<b>${m(s[1])}</b></span>
+  </label>
+`).join("");
+
+let tot = 0;
+
+function qt() {
+  const sub = $$("#sv input:checked").reduce((a, e) => a + S[e.value][1], 0);
+  const d = $("#dc").checked ? sub * .1 : 0;
+  const iv = (sub - d) * .15;
+  const T = sub - d + iv;
+  
+  $("#qs").textContent = m(sub);
+  $("#qd").textContent = "− " + m(d);
+  $("#qi").textContent = m(iv);
+  
+  tw(tot, T, 500, v => {
+    $("#qt").textContent = m(v);
+    tot = v;
+  });
+}
+
+$("#sv").onchange = $("#dc").onchange = qt;
+$("#qg").onclick = () => toast(tot ? "Cotización generada por " + m(tot) : "Selecciona al menos un servicio");
+
+$(".tabs").onclick = e => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  
+  $$(".tabs button").forEach(x => x.classList.toggle("on", x === b));
+  $$(".pn").forEach(p => p.hidden = p.id !== b.dataset.t);
+  
+  $("#wt").textContent = b.textContent.toLowerCase();
+  
+  if (b.dataset.t === "t2") inv();
+};
+
+const P = [
+  ["Recepción", "Se registra el cliente, el vehículo y lo que reporta. El sistema genera la orden y la hoja de ingreso."],
+  ["Diagnóstico", "El mecánico anota hallazgos y repuestos necesarios; el inventario confirma existencias."],
+  ["Presupuesto", "Se genera la cotización con ISV y el cliente la aprueba antes de empezar."],
+  ["Reparación", "El avance se actualiza en el tablero y el cliente recibe aviso de cada cambio."],
+  ["Entrega", "Se factura, se registra el pago y queda el historial del vehículo."]
+];
+
+$("#st").insertAdjacentHTML("beforeend", P.map((s, i) => `
+  <button data-i="${i}"><em>${i + 1}</em>${s[0]}</button>
+`).join(""));
+
+let ps = 0, auto;
+
+function step(i) {
+  ps = i;
+  $$("#st button").forEach((b, j) => b.classList.toggle("on", j <= i));
+  $("#pf").style.width = i / 4 * 80 + "%";
+  $("#dt").innerHTML = `<b>${P[i][0]}.</b> ${P[i][1]}`;
+}
+
+$("#st").onclick = e => {
+  const b = e.target.closest("button");
+  if (b) {
+    clearInterval(auto);
+    step(+b.dataset.i);
+  }
+};
+
+step(0);
+
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  const t = e.target;
+  io.unobserve(t);
+  t.classList.add("in");
+  
+  if (t.dataset.n) {
+    const n = +t.dataset.n;
+    tw(0, n, 1400, v => t.textContent = Math.round(v) + (t.dataset.s || ""));
+  }
+  
+  if (t.id === "st") {
+    let i = 0;
+    auto = setInterval(() => {
+      i++;
+      if (i > 4) return clearInterval(auto);
+      step(i);
+    }, 800);
+  }
+}), { threshold: .25 });
+
+$$(".rv,[data-n]").forEach(e => io.observe(e));
+
+addEventListener("scroll", () => $("#nav").classList.toggle("s", scrollY > 40), { passive: true });
+</script>
+</body>
+</html>

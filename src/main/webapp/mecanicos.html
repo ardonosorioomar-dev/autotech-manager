@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mecánicos – AutoTech Manager</title>
+<link rel="stylesheet" href="css/app.css">
+<style>
+.mec-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:28px; }
+.mec-card { background:var(--bg2); border:1px solid var(--border); border-radius:16px; padding:20px; display:flex; flex-direction:column; align-items:center; gap:10px; text-align:center; transition:border-color 0.2s; }
+.mec-card:hover { border-color:rgba(202,160,104,0.3); }
+.mec-avatar { width:56px; height:56px; border-radius:50%; background:var(--btn-gradient); display:flex; align-items:center; justify-content:center; font-weight:900; font-size:1.1rem; color:var(--amber-light); }
+.mec-name { font-weight:700; font-size:0.95rem; }
+.mec-espec { font-size:0.78rem; color:var(--mute); }
+.mec-phone { font-size:0.78rem; color:var(--mute2); }
+@media(max-width:900px){ .mec-grid { grid-template-columns:1fr 1fr; } }
+@media(max-width:600px){ .mec-grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="app-layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-logo">AT</div>
+    <div>
+      <div class="brand-name">Auto<span>Tech</span></div>
+      <div class="brand-sub">Gestión de Taller</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Principal</div>
+    <a href="dashboard.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard</a>
+    <a href="ordenes.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>Órdenes de Trabajo<span class="nav-badge" id="nb-ordenes">0</span></a>
+    <div class="nav-section-label">Clientes</div>
+    <a href="clientes.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Clientes</a>
+    <a href="vehiculos.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v9a2 2 0 0 1-2 2h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>Vehículos</a>
+    <div class="nav-section-label">Operaciones</div>
+    <a href="mecanicos.html" class="nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Mecánicos</a>
+    <a href="inventario.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>Inventario<span class="nav-badge" id="nb-inv" style="background:#f39c12">0</span></a>
+    <a href="motores.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M19.07 19.07l-1.41-1.41M4.93 19.07l1.41-1.41M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>Motores</a>
+    <div class="nav-section-label">Finanzas</div>
+    <a href="presupuestos.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Presupuestos</a>
+    <a href="pagos.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>Pagos</a>
+    <div class="nav-section-label">Especiales</div>
+    <a href="cambio-motor.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Cambio de Motor</a>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="Login.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Cerrar Sesión</a>
+  </div>
+</aside>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <button class="btn btn-icon btn-outline" onclick="document.getElementById('sidebar').classList.toggle('open')" style="display:none" id="menu-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <div class="topbar-title">Mecánicos <span>· Personal del taller</span></div>
+  <div class="topbar-actions">
+    <button class="btn btn-primary btn-sm" onclick="AT.openModal('modal-mecanico')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Nuevo Mecánico
+    </button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="main-content">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Personal <span>Mecánico</span></div>
+      <div class="page-subtitle">Equipo de técnicos del taller AutoTech</div>
+    </div>
+  </div>
+
+  <div id="mec-cards" class="mec-grid"></div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Lista Completa de Mecánicos</div>
+      <div class="text-sm text-mute" id="count-label"></div>
+    </div>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Identidad</th>
+            <th>Nombre Completo</th>
+            <th>Especialidad</th>
+            <th>Teléfono</th>
+            <th>Órdenes Activas</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-mecanicos"></tbody>
+      </table>
+    </div>
+  </div>
+</main>
+</div>
+
+<!-- MODAL NUEVO MECÁNICO -->
+<div class="modal-overlay" id="modal-mecanico">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Nuevo Mecánico</div>
+        <div class="modal-subtitle">Registrar técnico en el sistema</div>
+      </div>
+      <button class="btn btn-icon btn-outline" onclick="AT.closeModal('modal-mecanico')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <form id="form-mecanico">
+      <div class="modal-body">
+        <div class="form-grid form-grid-2">
+          <div class="form-group">
+            <label class="form-label form-label-required">N° Identidad</label>
+            <input type="text" class="form-control" id="mec-identidad" placeholder="0801-1990-12345" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label form-label-required">Nombre Completo</label>
+            <input type="text" class="form-control" id="mec-nombre" placeholder="Nombre y apellidos" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label form-label-required">Especialidad</label>
+            <input type="text" class="form-control" id="mec-especialidad" placeholder="Ej. Diagnóstico y Motores Diesel" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label form-label-required">Teléfono</label>
+            <input type="text" class="form-control" id="mec-telefono" placeholder="9876-5432" required>
+          </div>
+        </div>
+        <div id="mec-error" class="alert alert-danger mt-3" style="display:none"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" onclick="AT.closeModal('modal-mecanico')">Cancelar</button>
+        <button type="submit" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Registrar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script>
+(function() {
+  const db = AT.getDB();
+  const activas = db.ordenes.filter(o => !['Finalizada y entregada','Cancelada','Rechazada'].includes(o.estado));
+
+  function initials(nombre) {
+    return nombre.split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
+  }
+
+  function render() {
+    const grid = document.getElementById('mec-cards');
+    const tbody = document.getElementById('tabla-mecanicos');
+    document.getElementById('count-label').textContent = db.mecanicos.length + ' mecánico(s)';
+
+    grid.innerHTML = db.mecanicos.filter(m => m.activo).map(m => {
+      const ordM = activas.filter(o => o.idMecanico === m.id);
+      const ocupado = ordM.length > 0;
+      return `<div class="mec-card">
+        <div class="mec-avatar">${initials(m.nombreCompleto)}</div>
+        <div class="mec-name">${m.nombreCompleto}</div>
+        <div class="mec-espec">${m.especialidad}</div>
+        <div class="mec-phone">${m.telefono}</div>
+        ${AT.badge(ocupado ? 'Ocupado' : 'Disponible')}
+        ${ocupado ? `<small class="text-mute">${ordM.length} orden(es) activa(s)</small>` : ''}
+      </div>`;
+    }).join('');
+
+    tbody.innerHTML = db.mecanicos.map(m => {
+      const ordM = activas.filter(o => o.idMecanico === m.id);
+      return `<tr>
+        <td class="text-sm text-mute">${m.identidad}</td>
+        <td class="fw-bold">${m.nombreCompleto}</td>
+        <td class="text-sm">${m.especialidad}</td>
+        <td class="text-sm">${m.telefono}</td>
+        <td>${ordM.length ? `<span class="badge badge-amber">${ordM.length} activa(s)</span>` : '<span class="badge badge-green">Libre</span>'}</td>
+        <td>${AT.badge(m.activo ? 'Disponible' : 'Dado de baja')}</td>
+        <td>
+          <button class="btn btn-outline btn-sm" onclick="toggleActivo(${m.id})">${m.activo ? 'Desactivar' : 'Activar'}</button>
+        </td>
+      </tr>`;
+    }).join('');
+  }
+
+  window.toggleActivo = function(id) {
+    const m = db.mecanicos.find(x => x.id === id);
+    if (!m) return;
+    m.activo = !m.activo;
+    AT.save('mecanicos');
+    AT.toast(m.nombreCompleto + (m.activo ? ' activado' : ' desactivado'), 'info');
+    render();
+  };
+
+  document.getElementById('form-mecanico').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const errEl = document.getElementById('mec-error');
+    errEl.style.display = 'none';
+    const identidad = document.getElementById('mec-identidad').value.trim();
+    const nombreCompleto = document.getElementById('mec-nombre').value.trim();
+    const especialidad = document.getElementById('mec-especialidad').value.trim();
+    const telefono = document.getElementById('mec-telefono').value.trim();
+
+    if (!identidad || !nombreCompleto || !especialidad || !telefono) {
+      errEl.textContent = 'Todos los campos son obligatorios.';
+      errEl.style.display = 'flex'; return;
+    }
+    if (db.mecanicos.find(x => x.identidad === identidad)) {
+      errEl.textContent = 'Ya existe un mecánico con esa identidad.';
+      errEl.style.display = 'flex'; return;
+    }
+
+    const newId = AT.nextId ? AT.nextId('mecanicos') : (Math.max(0, ...db.mecanicos.map(x => x.id)) + 1);
+    db.mecanicos.push({ id: newId, identidad, nombreCompleto, especialidad, telefono, activo: true, disponible: true });
+    AT.save('mecanicos');
+    AT.toast(nombreCompleto + ' registrado exitosamente', 'success');
+    AT.closeModal('modal-mecanico');
+    this.reset();
+    render();
+  });
+
+  render();
+  if (window.innerWidth <= 1024) document.getElementById('menu-btn').style.display = 'flex';
+})();
+</script>
+</body>
+</html>

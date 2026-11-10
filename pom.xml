@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.autotech</groupId>
+  <artifactId>AutoTechWeb</artifactId>
+  <version>1.0</version>
+  <packaging>war</packaging>
+  <properties>
+    <maven.compiler.release>17</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <failOnMissingWebXml>false</failOnMissingWebXml>
+  </properties>
+  <dependencies>
+    <!-- Tomcat 10.1 = Jakarta EE 10 (NetBeans reconoce asi el proyecto como web) -->
+    <dependency>
+      <groupId>jakarta.platform</groupId>
+      <artifactId>jakarta.jakartaee-web-api</artifactId>
+      <version>10.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.microsoft.sqlserver</groupId>
+      <artifactId>mssql-jdbc</artifactId>
+      <version>12.6.1.jre11</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <finalName>AutoTechWeb</finalName>
+  </build>
+</project>
