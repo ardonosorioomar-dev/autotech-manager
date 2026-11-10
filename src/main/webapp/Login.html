@@ -323,5 +323,47 @@
             }, 320);
         });
     </script>
+<script>
+/* Conexion real del login y el registro con la base de datos (api/auth) */
+(function () {
+    function aviso(form, texto, bien) {
+        let p = form.querySelector('.aviso');
+        if (!p) { p = document.createElement('p'); p.className = 'aviso'; p.style.cssText = 'margin:12px 0 0;font-size:14px;text-align:center'; form.appendChild(p); }
+        p.style.color = bien ? '#7bd88f' : '#ff8a80';
+        p.textContent = texto;
+    }
+    async function enviar(ruta, datos) {
+        try {
+            const r = await fetch('api/auth/' + ruta, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(datos) });
+            let j = {}; try { j = await r.json(); } catch (e) { }
+            return { ok: r.ok && j.ok, error: j.error || 'No se pudo completar la operacion.' };
+        } catch (e) { return { ok: false, error: 'No se pudo conectar con el servidor.' }; }
+    }
+    function ocupado(form, si) { const b = form.querySelector('button[type="submit"]'); if (b) b.disabled = si; }
+
+    const fl = document.getElementById('loginForm');
+    fl.addEventListener('submit', async function () {
+        const correo = document.getElementById('email').value.trim(), password = document.getElementById('password').value;
+        if (!correo || !password) { aviso(fl, 'Escribe tu correo y tu contrasena.', false); return; }
+        ocupado(fl, true); aviso(fl, 'Entrando...', true);
+        const r = await enviar('login', { correo, password });
+        ocupado(fl, false);
+        if (r.ok) { location.href = 'dashboard.html'; } else { aviso(fl, r.error, false); }
+    });
+
+    const fr = document.getElementById('registerForm');
+    fr.addEventListener('submit', async function () {
+        const nombre = document.getElementById('reg-name').value.trim(), correo = document.getElementById('reg-email').value.trim();
+        const password = document.getElementById('reg-password').value, confirma = document.getElementById('reg-confirm-password').value;
+        if (!nombre || !correo || !password) { aviso(fr, 'Completa todos los campos.', false); return; }
+        if (password !== confirma) { aviso(fr, 'Las contrasenas no coinciden.', false); return; }
+        ocupado(fr, true); aviso(fr, 'Creando tu cuenta...', true);
+        let r = await enviar('register', { nombre, correo, password });
+        if (r.ok) r = await enviar('login', { correo, password });
+        ocupado(fr, false);
+        if (r.ok) { location.href = 'dashboard.html'; } else { aviso(fr, r.error, false); }
+    });
+})();
+</script>
 </body>
 </html>

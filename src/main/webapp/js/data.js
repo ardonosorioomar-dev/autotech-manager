@@ -75,11 +75,44 @@ const AT = (() => {
             ],
             nextId: JSON.parse(localStorage.getItem('at_nextId') || 'null') || { clientes: 4, vehiculos: 4, ordenes: 4, presupuestos: 2, pagos: 2, cambiosMotor: 2 },
         };
+        syncLoad(_db);
         return _db;
+    }
+
+    // ---- Conexion con la base de datos (Azure SQL). Sin servidor se usan los datos locales. ----
+    const SYNC = ['clientes', 'vehiculos'];   // tablas Clientes y Vehiculos (api/sync)
+    const GEN = ['mecanicos', 'servicios', 'repuestos', 'motores', 'ordenes', 'presupuestos', 'pagos', 'cambiosMotor']; // api/docs
+    const ALL = SYNC.concat(GEN);
+    function ruta(k) { return (SYNC.includes(k) ? 'api/sync/' : 'api/docs/') + k; }
+    function peticion(metodo, k, cuerpo) {
+        const x = new XMLHttpRequest();
+        x.open(metodo, ruta(k), false);
+        if (cuerpo) x.setRequestHeader('Content-Type', 'application/json');
+        x.send(cuerpo || null);
+        let r = null;
+        try { r = JSON.parse(x.responseText); } catch (e) { }
+        return { status: x.status, ok: x.status === 200 && Array.isArray(r), datos: r };
+    }
+    function syncLoad(db) {
+        ALL.forEach(k => {
+            try { const r = peticion('GET', k); if (r.ok) db[k] = r.datos; } catch (e) { }
+        });
+    }
+    function syncSave(k) {
+        const db = getDB();
+        try {
+            const r = peticion('POST', k, JSON.stringify(db[k]));
+            if (r.ok) { db[k].splice(0, db[k].length, ...r.datos); return; }
+            if (r.status === 0) return;   // sin servidor: queda solo en este navegador
+            toast((r.datos && r.datos.error) || 'No se pudo guardar en la base de datos', 'error');
+            const g = peticion('GET', k);
+            if (g.ok) db[k].splice(0, db[k].length, ...g.datos);
+        } catch (e) { }
     }
 
     function save(key) {
         const db = getDB();
+        if (ALL.includes(key)) syncSave(key);
         const keyMap = {
             clientes: 'at_clientes', vehiculos: 'at_vehiculos', mecanicos: 'at_mecanicos',
             servicios: 'at_servicios', repuestos: 'at_repuestos', motores: 'at_motores',
@@ -94,6 +127,8 @@ const AT = (() => {
     }
 
     function nextId(entity) {
+        if (SYNC.includes(entity)) return -Date.now(); // temporal: la base asigna el id real
+        if (GEN.includes(entity)) return getDB()[entity].reduce((m, x) => Math.max(m, x.id || 0), 0) + 1;
         const db = getDB();
         if (!db.nextId[entity]) db.nextId[entity] = 1;
         return db.nextId[entity]++;
